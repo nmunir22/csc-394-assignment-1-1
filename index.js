@@ -19,23 +19,23 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const Pool = require('pg').Pool
 
-const connectionParams = process.env.DATABASE_URL || {
-
-    user: 'api_user',
-    host: 'localhost',
-    database: 'api',
-    password: 'password',
-    port: '5432',
-
+var connectionParams = null;
+if (process.env.DATABASE_URL != null) {
+    connectionParams = {
+    	connectionString: process.env.DATABASE_URL,
+    	ssl: { rejectUnauthorized: false }
+    }
+} else {
+   connectionParams = {
+      user: 'api_user',
+      host: 'localhost',
+      database: 'api',
+      password: 'password',
+      port: 5432
+   }
 }
-
-const pool = new Pool({
-  user: 'api_user',
-  host: process.env.DATABASE_URL || 'localhost',
-  database: 'api',
-  password: 'password',
-  port: 5432
-})
+console.log(connectionParams)
+const pool = new Pool(connectionParams)
 
 
 app.get('/',(req,res) => {
