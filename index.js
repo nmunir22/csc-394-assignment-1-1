@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000
 
 // Set the view engine for the express app
 
-app.set("view engine", "jade")
+app.set("view engine", "pug")
 
 
 //for parsing application/json
